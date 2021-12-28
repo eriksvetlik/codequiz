@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Trispace&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Trispace, serif;
+  line-height: 1.6;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 150px;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media screen and (max-width: 576px) {
+  header {
+    flex-direction: column;
+  }
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
