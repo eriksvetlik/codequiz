@@ -1,18 +1,22 @@
+var btn1 = document.createElement("button");
+var btn2 = document.createElement("button");
+var btn3 = document.createElement("button");
+var btn4 = document.createElement("button");
 var buttonsID = document.getElementById("buttons");
 var buttonsClass = document.getElementsByClassName("buttons");
 var question = document.getElementById("question");
 var questionNumber = document.getElementById("questionNumber");
 var startButton = document.getElementById("startButton");
 var timer = document.getElementById("timer");
+var timeLeft = 61;
 
 startButton.addEventListener("click", function () {
   countdown();
   question1();
+  startButton.style.display = "none";
 });
 
 function countdown() {
-  var timeLeft = 61;
-
   var timeInterval = setInterval(function () {
     timeLeft--;
     timer.textContent = "Time: " + timeLeft;
@@ -35,11 +39,6 @@ function question1() {
   questionNumber.textContent = "Question 1";
   question.textContent = "Commonly used data types DO NOT include:";
 
-  var btn1 = document.createElement("button");
-  var btn2 = document.createElement("button");
-  var btn3 = document.createElement("button");
-  var btn4 = document.createElement("button");
-
   btn1.textContent = "strings";
   btn2.textContent = "booleans";
   btn3.textContent = "alerts";
@@ -50,13 +49,117 @@ function question1() {
   buttonsID.appendChild(btn3);
   buttonsID.appendChild(btn4);
 
-  startButton.style.display = "none";
+  buttonsID.addEventListener("click", function handleAnswer1(event) {
+    var answer = event.target.textContent;
 
-  buttonsClass.addEventListener("click", function (event) {
-    var answer = event.target;
+    if (answer == btn3.textContent) {
+      console.log("Correct!");
+      buttonsID.removeEventListener("click", handleAnswer1);
+      question2();
+    } else {
+      console.log("Incorrect! You've lost 10 seconds!");
+      buttonsID.removeEventListener("click", handleAnswer1);
+      timeLeft = timeLeft - 10;
+      question2();
+    }
+  });
+}
 
-    if ((answer = btn2)) {
-      console.log(answer);
+function question2() {
+  questionNumber.textContent = "Question 2";
+  question.textContent =
+    "The condition of an if/else statement is enclosed within:";
+
+  btn1.textContent = "quotes";
+  btn2.textContent = "curly brackets";
+  btn3.textContent = "parenthesis";
+  btn4.textContent = "square brackets";
+
+  buttonsID.addEventListener("click", function handleAnswer2(event) {
+    var answer = event.target.textContent;
+
+    if (answer == btn3.textContent) {
+      console.log("Correct!");
+      buttonsID.removeEventListener("click", handleAnswer2);
+      question3();
+    } else {
+      console.log("Incorrect! You've lost 10 seconds!");
+      buttonsID.removeEventListener("click", handleAnswer3);
+      timeLeft = timeLeft - 10;
+      question3();
+    }
+  });
+}
+
+function question3() {
+  questionNumber.textContent = "Question 3";
+  question.textContent = "How does JavaScript store dates?";
+
+  btn1.textContent = "the number of milliseconds since 01/01/1970";
+  btn2.textContent = "the number of hours since 01/01/2000";
+  btn3.textContent = "the number of days since 01/01/1900";
+  btn4.textContent = "none of the above";
+
+  buttonsID.addEventListener("click", function handleAnswer3(event) {
+    var answer = event.target.textContent;
+
+    if (answer === btn1.textContent) {
+      console.log("Correct!");
+      buttonsID.removeEventListener("click", handleAnswer3);
+      question4();
+    } else {
+      console.log("Incorrect! You've lost 10 seconds!");
+      buttonsID.removeEventListener("click", handleAnswer3);
+      timeLeft = timeLeft - 10;
+      question4();
+    }
+  });
+}
+
+function question4() {
+  questionNumber.textContent = "Question 4";
+  question.textContent = "Arrays in JavScript can be used to store:";
+
+  btn1.textContent = "numbers and strings";
+  btn2.textContent = "other arrays";
+  btn3.textContent = "booleans";
+  btn4.textContent = "all of the above";
+
+  buttonsID.addEventListener("click", function handleAnswer4(event) {
+    var answer = event.target.textContent;
+
+    if (answer === btn4.textContent) {
+      console.log("Correct!");
+      buttonsID.removeEventListener("click", handleAnswer4);
+      question5();
+    } else {
+      console.log("Incorrect! You've lost 10 seconds!");
+      buttonsID.removeEventListener("click", handleAnswer4);
+      timeLeft = timeLeft - 10;
+      question5();
+    }
+  });
+}
+
+function question5() {
+  questionNumber.textContent = "Question 5";
+  question.textContent = "Inside what type of element do you put JavaScript?";
+
+  btn1.textContent = "<js>";
+  btn2.textContent = "<script>";
+  btn3.textContent = "<javascript>";
+  btn4.textContent = "none of the above";
+
+  buttonsID.addEventListener("click", function handleAnswer5(event) {
+    var answer = event.target.textContent;
+
+    if (answer === btn2.textContent) {
+      console.log("Correct!");
+      buttonsID.removeEventListener("click", handleAnswer5);
+    } else {
+      console.log("Incorrect! You've lost 10 seconds!");
+      buttonsID.removeEventListener("click", handleAnswer5);
+      timeLeft = timeLeft - 10;
     }
   });
 }
