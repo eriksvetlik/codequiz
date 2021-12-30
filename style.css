@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Trispace&display=swap");
 
+:root {
+  --primarycolor: #2d2d2d;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -7,6 +11,28 @@
 body {
   font-family: Trispace, serif;
   line-height: 1.6;
+  color: var(--primarycolor);
+}
+
+button {
+  cursor: pointer;
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid var(--primarycolor);
+  padding: 6px 12px;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: var(--primarycolor);
+}
+
+button:hover {
+  color: #ffffff;
+  background-color: var(--primarycolor);
+  border-color: var(--primarycolor);
 }
 
 header {
