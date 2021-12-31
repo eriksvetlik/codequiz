@@ -6,7 +6,12 @@ var buttonsID = document.getElementById("buttons");
 var buttonsClass = document.getElementsByClassName("buttons");
 var question = document.getElementById("question");
 var questionNumber = document.getElementById("questionNumber");
+var score = 0;
+var scoresTable = document.getElementById("scoresTable");
+var scoresButton = document.getElementById("scoresButton");
 var startButton = document.getElementById("startButton");
+var scoreInitials = [];
+var scoreValues = [];
 var timer = document.getElementById("timer");
 var timeLeft = 61;
 
@@ -14,6 +19,13 @@ startButton.addEventListener("click", function () {
   countdown();
   question1();
   startButton.style.display = "none";
+  question.style.display = "initial";
+  btn1.style.display = "initial";
+  btn2.style.display = "initial";
+  btn3.style.display = "initial";
+  btn4.style.display = "initial";
+  scoresTable.style.display = "none";
+  score = 0;
 });
 
 function countdown() {
@@ -55,6 +67,7 @@ function question1() {
     if (answer == btn3.textContent) {
       console.log("Correct!");
       buttonsID.removeEventListener("click", handleAnswer1);
+      score = score + 20;
       question2();
     } else {
       console.log("Incorrect! You've lost 10 seconds!");
@@ -81,10 +94,11 @@ function question2() {
     if (answer == btn3.textContent) {
       console.log("Correct!");
       buttonsID.removeEventListener("click", handleAnswer2);
+      score = score + 20;
       question3();
     } else {
       console.log("Incorrect! You've lost 10 seconds!");
-      buttonsID.removeEventListener("click", handleAnswer3);
+      buttonsID.removeEventListener("click", handleAnswer2);
       timeLeft = timeLeft - 10;
       question3();
     }
@@ -106,6 +120,7 @@ function question3() {
     if (answer === btn1.textContent) {
       console.log("Correct!");
       buttonsID.removeEventListener("click", handleAnswer3);
+      score = score + 20;
       question4();
     } else {
       console.log("Incorrect! You've lost 10 seconds!");
@@ -131,6 +146,7 @@ function question4() {
     if (answer === btn4.textContent) {
       console.log("Correct!");
       buttonsID.removeEventListener("click", handleAnswer4);
+      score = score + 20;
       question5();
     } else {
       console.log("Incorrect! You've lost 10 seconds!");
@@ -156,10 +172,51 @@ function question5() {
     if (answer === btn2.textContent) {
       console.log("Correct!");
       buttonsID.removeEventListener("click", handleAnswer5);
+      score = score + 20;
+      finalScore();
     } else {
       console.log("Incorrect! You've lost 10 seconds!");
       buttonsID.removeEventListener("click", handleAnswer5);
       timeLeft = timeLeft - 10;
+      finalScore();
     }
   });
 }
+
+function finalScore() {
+  questionNumber.textContent = "";
+  question.textContent = "";
+  startButton.style.display = "none";
+  btn1.style.display = "none";
+  btn2.style.display = "none";
+  btn3.style.display = "none";
+  btn4.style.display = "none";
+  var initials = prompt(
+    "You got " + score + " out of 100! Enter your initials to keep your score!"
+  );
+  initials = initials.toString();
+  scoreInitials.push(initials);
+  scoreValues.push(score);
+  allScores();
+}
+
+function allScores() {
+  questionNumber.textContent = "High Scores";
+  btn1.style.display = "none";
+  btn2.style.display = "none";
+  btn3.style.display = "none";
+  btn4.style.display = "none";
+  question.style.display = "none";
+  startButton.style.display = "initial";
+  scoresButton.style.display = "none";
+  scoresTable.style.display = "initial";
+  for (var i = 0; i < scoreInitials.length; i++) {
+    scoresTable.textContent = scoreInitials;
+    scoresTable.textContent = scoreValues;
+  }
+  startButton.textContent = "Retake Quiz";
+}
+
+scoresButton.addEventListener("click", function goToScores() {
+  allScores();
+});
