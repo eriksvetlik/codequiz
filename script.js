@@ -3,13 +3,11 @@ var btn2 = document.createElement("button");
 var btn3 = document.createElement("button");
 var btn4 = document.createElement("button");
 var buttonsID = document.getElementById("buttons");
-var buttonsClass = document.getElementsByClassName("buttons");
 var question = document.getElementById("question");
 var questionNumber = document.getElementById("questionNumber");
 var score = 0;
-var scoresTable = document.getElementById("scoresTable");
-var scoresButton = document.getElementById("scoresButton");
 var startButton = document.getElementById("startButton");
+var scoreTable = document.getElementById("scoreTable");
 var scoreValues = [];
 var timer = document.getElementById("timer");
 var timeInterval;
@@ -18,21 +16,21 @@ var userInitials;
 var userScores;
 
 startButton.addEventListener("click", function () {
-  timeLeft = 61;
-  countdown();
-  question1();
+  score = 0;
   startButton.style.display = "none";
   question.style.display = "initial";
   btn1.style.display = "initial";
   btn2.style.display = "initial";
   btn3.style.display = "initial";
   btn4.style.display = "initial";
-  scoresTable.style.display = "none";
-  scoresButton.style.display = "initial";
-  score = 0;
+  scoreTable.style.display = "none";
+  countdown();
+  question1();
 });
 
 function countdown() {
+  timeLeft = 61;
+
   timeInterval = setInterval(function () {
     timeLeft--;
     timer.textContent = "Time: " + timeLeft;
@@ -43,25 +41,6 @@ function countdown() {
       timeUp();
     }
   }, 1000);
-}
-
-function timeUp() {
-  questionNumber.textContent = "";
-  question.textContent = "";
-  startButton.style.display = "none";
-  btn1.style.display = "none";
-  btn2.style.display = "none";
-  btn3.style.display = "none";
-  btn4.style.display = "none";
-  scoresButton.style.display = "none";
-  var initials = prompt(
-    "Time is up! You got " +
-      score +
-      " out of 100! Enter your initials to keep your score!"
-  );
-  initials = initials.toString();
-  scoreValues.push({ [initials]: score });
-  allScores();
 }
 
 function question1() {
@@ -82,12 +61,12 @@ function question1() {
     var answer = event.target.textContent;
 
     if (answer == btn3.textContent) {
-      console.log("Correct!");
+      alert("Correct!");
       buttonsID.removeEventListener("click", handleAnswer1);
       score = score + 20;
       question2();
     } else {
-      console.log("Incorrect! You've lost 10 seconds!");
+      alert("Incorrect! You've lost 10 seconds!");
       buttonsID.removeEventListener("click", handleAnswer1);
       timeLeft = timeLeft - 10;
       question2();
@@ -109,12 +88,12 @@ function question2() {
     var answer = event.target.textContent;
 
     if (answer == btn3.textContent) {
-      console.log("Correct!");
+      alert("Correct!");
       buttonsID.removeEventListener("click", handleAnswer2);
       score = score + 20;
       question3();
     } else {
-      console.log("Incorrect! You've lost 10 seconds!");
+      alert("Incorrect! You've lost 10 seconds!");
       buttonsID.removeEventListener("click", handleAnswer2);
       timeLeft = timeLeft - 10;
       question3();
@@ -135,12 +114,12 @@ function question3() {
     var answer = event.target.textContent;
 
     if (answer === btn1.textContent) {
-      console.log("Correct!");
+      alert("Correct!");
       buttonsID.removeEventListener("click", handleAnswer3);
       score = score + 20;
       question4();
     } else {
-      console.log("Incorrect! You've lost 10 seconds!");
+      alert("Incorrect! You've lost 10 seconds!");
       buttonsID.removeEventListener("click", handleAnswer3);
       timeLeft = timeLeft - 10;
       question4();
@@ -161,12 +140,12 @@ function question4() {
     var answer = event.target.textContent;
 
     if (answer === btn4.textContent) {
-      console.log("Correct!");
+      alert("Correct!");
       buttonsID.removeEventListener("click", handleAnswer4);
       score = score + 20;
       question5();
     } else {
-      console.log("Incorrect! You've lost 10 seconds!");
+      alert("Incorrect! You've lost 10 seconds!");
       buttonsID.removeEventListener("click", handleAnswer4);
       timeLeft = timeLeft - 10;
       question5();
@@ -187,12 +166,12 @@ function question5() {
     var answer = event.target.textContent;
 
     if (answer === btn2.textContent) {
-      console.log("Correct!");
+      alert("Correct!");
       buttonsID.removeEventListener("click", handleAnswer5);
       score = score + 20;
       finalScore();
     } else {
-      console.log("Incorrect! You've lost 10 seconds!");
+      alert("Incorrect! You've lost 10 seconds!");
       buttonsID.removeEventListener("click", handleAnswer5);
       timeLeft = timeLeft - 10;
       finalScore();
@@ -208,13 +187,37 @@ function finalScore() {
   btn2.style.display = "none";
   btn3.style.display = "none";
   btn4.style.display = "none";
-  scoresButton.style.display = "none";
   var initials = prompt(
     "You got " + score + " out of 100! Enter your initials to keep your score!"
   );
-  initials = initials.toString();
+  if (initials === "") {
+    alert("Please enter at least one letter");
+    finalScore();
+    return;
+  }
   scoreValues.push(initials + ": " + score);
-  console.log(scoreValues);
+  allScores();
+}
+
+function timeUp() {
+  questionNumber.textContent = "";
+  question.textContent = "";
+  startButton.style.display = "none";
+  btn1.style.display = "none";
+  btn2.style.display = "none";
+  btn3.style.display = "none";
+  btn4.style.display = "none";
+  var initials = prompt(
+    "Time is up! You got " +
+      score +
+      " out of 100! Enter your initials to keep your score!"
+  );
+  if (initials === "") {
+    alert("Please enter at least one letter");
+    finalScore();
+    return;
+  }
+  scoreValues.push(initials + ": " + score);
   allScores();
 }
 
@@ -228,15 +231,10 @@ function allScores() {
   btn4.style.display = "none";
   question.style.display = "none";
   startButton.style.display = "initial";
-  scoresButton.style.display = "none";
-  scoresTable.style.display = "initial";
+  scoreTable.style.display = "initial";
   for (var i = 0; i < scoreValues.length; i++) {
     console.log(scoreValues);
-    scoresTable.textContent = scoreValues;
+    scoreTable.innerHTML = scoreValues.join("<br/>");
   }
   startButton.textContent = "Retake Quiz";
 }
-
-scoresButton.addEventListener("click", function goToScores() {
-  allScores();
-});
