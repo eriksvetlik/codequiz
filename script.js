@@ -10,12 +10,15 @@ var score = 0;
 var scoresTable = document.getElementById("scoresTable");
 var scoresButton = document.getElementById("scoresButton");
 var startButton = document.getElementById("startButton");
-var scoreInitials = [];
 var scoreValues = [];
 var timer = document.getElementById("timer");
-var timeLeft = 61;
+var timeInterval;
+var timeLeft;
+var userInitials;
+var userScores;
 
 startButton.addEventListener("click", function () {
+  timeLeft = 61;
   countdown();
   question1();
   startButton.style.display = "none";
@@ -25,26 +28,40 @@ startButton.addEventListener("click", function () {
   btn3.style.display = "initial";
   btn4.style.display = "initial";
   scoresTable.style.display = "none";
+  scoresButton.style.display = "initial";
   score = 0;
 });
 
 function countdown() {
-  var timeInterval = setInterval(function () {
+  timeInterval = setInterval(function () {
     timeLeft--;
     timer.textContent = "Time: " + timeLeft;
 
-    if (timeLeft === 0) {
+    if (timeLeft <= 0) {
       timer.textContent = "";
       clearInterval(timeInterval);
-      displayMessage();
+      timeUp();
     }
   }, 1000);
 }
 
-function displayMessage() {
-  questionNumber.textContent = "Time is up!";
+function timeUp() {
+  questionNumber.textContent = "";
   question.textContent = "";
   startButton.style.display = "none";
+  btn1.style.display = "none";
+  btn2.style.display = "none";
+  btn3.style.display = "none";
+  btn4.style.display = "none";
+  scoresButton.style.display = "none";
+  var initials = prompt(
+    "Time is up! You got " +
+      score +
+      " out of 100! Enter your initials to keep your score!"
+  );
+  initials = initials.toString();
+  scoreValues.push({ [initials]: score });
+  allScores();
 }
 
 function question1() {
@@ -191,16 +208,19 @@ function finalScore() {
   btn2.style.display = "none";
   btn3.style.display = "none";
   btn4.style.display = "none";
+  scoresButton.style.display = "none";
   var initials = prompt(
     "You got " + score + " out of 100! Enter your initials to keep your score!"
   );
   initials = initials.toString();
-  scoreInitials.push(initials);
-  scoreValues.push(score);
+  scoreValues.push(initials + ": " + score);
+  console.log(scoreValues);
   allScores();
 }
 
 function allScores() {
+  timer.textContent = "";
+  clearInterval(timeInterval);
   questionNumber.textContent = "High Scores";
   btn1.style.display = "none";
   btn2.style.display = "none";
@@ -210,8 +230,8 @@ function allScores() {
   startButton.style.display = "initial";
   scoresButton.style.display = "none";
   scoresTable.style.display = "initial";
-  for (var i = 0; i < scoreInitials.length; i++) {
-    scoresTable.textContent = scoreInitials;
+  for (var i = 0; i < scoreValues.length; i++) {
+    console.log(scoreValues);
     scoresTable.textContent = scoreValues;
   }
   startButton.textContent = "Retake Quiz";
