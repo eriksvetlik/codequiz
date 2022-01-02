@@ -15,7 +15,7 @@ var timeLeft;
 var userInitials;
 var userScores;
 
-// when the user starts the quiz with a button, the timer starts and the first questions is presented
+// when the user starts the quiz with the Start Quiz button, the timer starts and the first question is presented.
 startButton.addEventListener("click", function () {
   score = 0;
   timeLeft = 61;
@@ -44,44 +44,40 @@ function countdown() {
   }, 1000);
 }
 
-// if time still remains, buttons are created for each answer. when the user selects a button, it is compared to the answer.
+// Buttons are created for each answer. when the user selects a button, it is compared to the answer.
 // if correct, the user receives 20 points and goes to the next question. if incorrect, 10 seconds is deducted from the time and the user goes to the next question.
 function question1() {
-  if (timeLeft > 0) {
-    questionNumber.textContent = "Question 1";
-    question.textContent = "Commonly used data types DO NOT include:";
+  questionNumber.textContent = "Question 1";
+  question.textContent = "Commonly used data types DO NOT include:";
 
-    btn1.textContent = "strings";
-    btn2.textContent = "booleans";
-    btn3.textContent = "alerts";
-    btn4.textContent = "numbers";
+  btn1.textContent = "strings";
+  btn2.textContent = "booleans";
+  btn3.textContent = "alerts";
+  btn4.textContent = "numbers";
 
-    buttonsID.appendChild(btn1);
-    buttonsID.appendChild(btn2);
-    buttonsID.appendChild(btn3);
-    buttonsID.appendChild(btn4);
+  buttonsID.appendChild(btn1);
+  buttonsID.appendChild(btn2);
+  buttonsID.appendChild(btn3);
+  buttonsID.appendChild(btn4);
 
-    buttonsID.addEventListener("click", function handleAnswer1(event) {
-      var answer = event.target.textContent;
+  buttonsID.addEventListener("click", function handleAnswer1(event) {
+    var answer = event.target.textContent;
 
-      if (answer == btn3.textContent) {
-        alert("Correct!");
-        buttonsID.removeEventListener("click", handleAnswer1);
-        score = score + 20;
-        question2();
-      } else {
-        alert("Incorrect! You've lost 10 seconds!");
-        buttonsID.removeEventListener("click", handleAnswer1);
-        timeLeft = timeLeft - 10;
-        question2();
-      }
-    });
-  } else {
-    return;
-  }
+    if (answer == btn3.textContent) {
+      alert("Correct!");
+      buttonsID.removeEventListener("click", handleAnswer1);
+      score = score + 20;
+      question2();
+    } else {
+      alert("Incorrect! You've lost 10 seconds!");
+      buttonsID.removeEventListener("click", handleAnswer1);
+      timeLeft = timeLeft - 10;
+      question2();
+    }
+  });
 }
 
-// if time still remains, buttons are created for each answer. when the user selects a button, it is compared to the answer.
+// if time still remains, buttons are updated for each answer. when the user selects a button, it is compared to the answer.
 // if correct, the user receives 20 points and goes to the next question. if incorrect, 10 seconds is deducted from the time and the user goes to the next question.
 function question2() {
   if (timeLeft > 0) {
@@ -114,7 +110,7 @@ function question2() {
   }
 }
 
-// if time still remains, buttons are created for each answer. when the user selects a button, it is compared to the answer.
+// if time still remains, buttons are updated for each answer. when the user selects a button, it is compared to the answer.
 // if correct, the user receives 20 points and goes to the next question. if incorrect, 10 seconds is deducted from the time and the user goes to the next question.
 function question3() {
   if (timeLeft > 0) {
@@ -146,7 +142,7 @@ function question3() {
   }
 }
 
-// if time still remains, buttons are created for each answer. when the user selects a button, it is compared to the answer.
+// if time still remains, buttons are updated for each answer. when the user selects a button, it is compared to the answer.
 // if correct, the user receives 20 points and goes to the next question. if incorrect, 10 seconds is deducted from the time and the user goes to the next question.
 function question4() {
   if (timeLeft > 0) {
@@ -178,7 +174,7 @@ function question4() {
   }
 }
 
-// if time still remains, buttons are created for each answer. when the user selects a button, it is compared to the answer.
+// if time still remains, buttons are updated for each answer. when the user selects a button, it is compared to the answer.
 // if correct, the user receives 20 points and the finalScore function is called. if incorrect, the finalScore function is still called.
 function question5() {
   if (timeLeft > 0) {
@@ -209,7 +205,7 @@ function question5() {
   }
 }
 
-// the user receives their final score and gets a prompt to enter their initials to save the score. Once saved, the allScores function is called.
+// the user receives their final score and gets a prompt to enter their initials to save the score. Once saved, the initials and score are pushed to the scoreValues array and allScores function is called.
 function finalScore() {
   questionNumber.textContent = "";
   question.textContent = "";
@@ -230,7 +226,7 @@ function finalScore() {
   allScores();
 }
 
-// if the timer runs to 0, the user receives their final score and gets a prompt to enter their initials to save the score. Once saved, the allScores function is called.
+// if the timer runs to 0, the user receives their final score and gets a prompt to enter their initials to save the score. Once saved, the initials and score are pushed to the scoreValues array and allScores function is called.
 function timeUp() {
   questionNumber.textContent = "";
   question.textContent = "";
@@ -253,7 +249,7 @@ function timeUp() {
   allScores();
 }
 
-// the user is able to view all recorded scores and retake the quiz
+// the user is able to view all recorded scores from the scoreValues array and retake the quiz
 function allScores() {
   timer.textContent = "";
   clearInterval(timeInterval);
