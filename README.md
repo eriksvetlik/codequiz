@@ -14,6 +14,8 @@ Once the user enters their intials, they're able to see previously saved scores.
 
 I was able to complete all requirements for this assignment, except one issue I couldn't solve that results from the timer running to 0 and the user retaking the test. When doing so, Question 1 correctly appears, however the browser treats the question as whatever question the user was on when the timer ran to 0, causing an incorrect answer. However, if the user finishes the quiz before the timer runs out or an incorrect answer causes the timer to go below 0, the user is able to retake the quiz without issue.
 
+HTML | CSS | Javascript
+
 # Screenshot
 
 ![Screenshot of webpage](./images/homework-readme.png)
